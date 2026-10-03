@@ -3,7 +3,7 @@ const notas = [];
 const limiteNotas = 3;
 const limiteAlumnos = 10;
 
-const formulario = document.getElementById('formulario');
+const formulario = document.getElementsByClassName('formulario');
 const nombre = document.getElementById('nombre');
 const nota1 = parseFloat(document.getElementById('nota1'));
 const nota2 = parseFloat(document.getElementById('nota2'));
@@ -96,7 +96,7 @@ const procesarYMostrarResultados = () => {
         <h3>Rendimiento General</h3>
         <p>Promedio General del Curso: ${promedioGeneral.toFixed(2)}</p>
         <p>Alumnos Aprobados (>= 55): ${rendimiento.aprobados}</p>
-        <p>Alumnos Reprobados (< 55): ${rendimiento.reprobados}</p>
+        <p>Alumnos Reprobados (< 55): ${rendimiento.desaprobados}</p>
 
         <h3>Ranking de Alumnos (Ordenados por Promedio)</h3>
         <ol>
