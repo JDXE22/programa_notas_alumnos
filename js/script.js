@@ -85,7 +85,7 @@ const procesarYMostrarResultados = () => {
   const rendimiento = evaluarRendimiento(promediosAlumnos);
   const ranking = ordernarRankings(nombres, promediosAlumnos);
 
-  const resultadosDiv = document.getElementById('resultados');
+  const resultadosDiv = document.getElementById('resultado');
   resultadosDiv.innerHTML = `<h2>Resultados del Curso</h2>
         
         <h3>Promedios por Certamen</h3>
