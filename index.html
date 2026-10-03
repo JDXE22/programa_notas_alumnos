@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Programa de entrega de notas de alumnos</title>
+    <script src="js/script.js"></script>
+  </head>
+
+  <body>
+    <main class="formulario">
+      <form action="">
+        <label for="nombre">Nombre del alumno</label>
+        <input
+          type="text"
+          name="nombre"
+          id="nombre"
+          placeholder="Ingrese el nombre del alumno" />
+        <label for="nota1">Nota 1</label>
+        <input
+          type="number"
+          name="nota1"
+          id="nota1"
+          placeholder="Ingrese la nota 1" />
+        <label for="nota2">Nota 2</label>
+        <input
+          type="number"
+          name="nota2"
+          id="nota2"
+          placeholder="Ingrese la nota 2" />
+        <label for="">Nota 3</label>
+        <input
+          type="number"
+          name="nota3"
+          id="nota3"
+          placeholder="Ingrese la nota 3" />
+        <button type="button" id="btnCalcular">Calcular</button>
+      </form>
+    </main>
+
+    <section id="resultado">
+      <h2>Resultado</h2>
+      <p id="promedio"></p>
+      <p id="estado"></p>
+    </section>
+  </body>
+</html>
