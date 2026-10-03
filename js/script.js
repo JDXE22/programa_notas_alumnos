@@ -3,14 +3,18 @@ const notas = [];
 const limiteNotas = 3;
 const limiteAlumnos = 10;
 
-const formulario = document.getElementsByClassName('formulario');
+const formulario = document.getElementById('formulario');
 const nombre = document.getElementById('nombre');
-const nota1 = parseFloat(document.getElementById('nota1'));
-const nota2 = parseFloat(document.getElementById('nota2'));
-const nota3 = parseFloat(document.getElementById('nota3'));
+const nota1 = document.getElementById('nota1');
+const nota2 = document.getElementById('nota2');
+const nota3 = document.getElementById('nota3');
+
+const validarNotas = (arregloNotas) => {
+  return arregloNotas.every((nota) => !isNaN(nota) && nota >= 0 && nota <= 100);
+};
 
 const calcularPromedioAlumno = (notas) => {
-  const suma = 0;
+  let suma = 0;
   for (let i = 0; i < notas.length; i++) {
     suma += notas[i];
   }
@@ -38,7 +42,7 @@ const calcularPromedioCertanemes = (matrizNotas) => {
 const evaluarRendimiento = (promedioAlumnos) => {
   const aprobados = promedioAlumnos.filter((promedio) => promedio >= 55).length;
   const desaprobados = promedioAlumnos.filter(
-    (promedio) => promedio <= 55,
+    (promedio) => promedio < 55,
   ).length;
 
   return { aprobados, desaprobados };
@@ -59,16 +63,28 @@ formulario.addEventListener('submit', (event) => {
     return;
   }
 
-  if (!nombre || isNaN(nota1) || isNaN(nota2) || isNaN(nota3)) {
-    alert('Por favor, complete todos los campos correctamente.');
+  const nombreAlumno = nombre.value.trim();
+  const notasAlumno = [
+    parseFloat(nota1.value),
+    parseFloat(nota2.value),
+    parseFloat(nota3.value),
+  ];
+
+  if (!nombreAlumno) {
+    alert('Por favor, ingrese el nombre del alumno.');
     return;
   }
 
-  nombres.push(nombre.value);
-  notas.push([nota1, nota2, nota3]);
+  if (!validarNotas(notasAlumno)) {
+    alert('Las notas deben ser números entre 0 y 100.');
+    return;
+  }
+
+  nombres.push(nombreAlumno);
+  notas.push(notasAlumno);
 
   formulario.reset();
-  alert(`Alumno ${nombre.value} agregado correctamente.`);
+  alert(`Alumno ${nombreAlumno} agregado correctamente.`);
 
   if (nombres.length === limiteAlumnos) {
     procesarYMostrarResultados();
@@ -88,6 +104,16 @@ const procesarYMostrarResultados = () => {
   const resultadosDiv = document.getElementById('resultado');
   resultadosDiv.innerHTML = `<h2>Resultados del Curso</h2>
         
+        <h3>Notas de los Alumnos</h3>
+        <table>
+          <thead>
+            <tr><th>Alumno</th><th>Certamen 1</th><th>Certamen 2</th><th>Certamen 3</th><th>Promedio</th></tr>
+          </thead>
+          <tbody>
+            ${nombres.map((nombreAlumno, index) => `<tr><td>${nombreAlumno}</td><td>${notas[index][0]}</td><td>${notas[index][1]}</td><td>${notas[index][2]}</td><td>${promediosAlumnos[index].toFixed(2)}</td></tr>`).join('')}
+          </tbody>
+        </table>
+
         <h3>Promedios por Certamen</h3>
         <p>Certamen 1: ${promediosPorCertamen[0].toFixed(2)}</p>
         <p>Certamen 2: ${promediosPorCertamen[1].toFixed(2)}</p>
@@ -100,7 +126,7 @@ const procesarYMostrarResultados = () => {
 
         <h3>Ranking de Alumnos (Ordenados por Promedio)</h3>
         <ol>
-            ${ranking.map((alumno) => `<li>${alumno.nombre}:${alumno.promedio.toFixed(2)}</li>`).join('')}
+            ${ranking.map((alumno) => `<li>${alumno.nombre}: ${alumno.promedio.toFixed(2)}</li>`).join('')}
         </ol>
     `;
 };
